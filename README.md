@@ -42,6 +42,7 @@ See [COMPONENTS.md](./docs/COMPONENTS.md) for detailed component documentation.
 - **[Accessibility](./docs/ACCESSIBILITY.md)** — Accessibility guidelines and WCAG compliance
 - **[Animation & Motion](./docs/ANIMATION.md)** — Motion primitives and animation guidelines
 - **[Keyboard Navigation](./docs/KEYBOARD_NAVIGATION.md)** — Keyboard support and focus management
+- **[Visual Reference System](./docs/VISUAL_REFERENCE_SYSTEM.md)** — Design aesthetic frameworks and visual directions
 
 ## Components
 
