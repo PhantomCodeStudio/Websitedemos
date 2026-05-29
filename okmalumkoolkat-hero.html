@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iTHELU eTHEKWINI - Okmalumkoolkat</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --duration-fast: 300ms;
+      --duration-normal: 500ms;
+      --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-entrance: cubic-bezier(0.2, 0, 0.38, 0.9);
+      --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #000;
+      overflow-x: hidden;
+    }
+
+    .hero-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      max-width: 100vh;
+      margin: 0 auto;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .hero-stage {
+      position: absolute;
+      inset: 0;
+      perspective: 1000px;
+    }
+
+    /* Layer base styles */
+    .layer {
+      position: absolute;
+      inset: 0;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    /* Staggered entrance animations */
+    .layer-background {
+      animation: fadeInScale 0.8s var(--ease-entrance) 0s forwards;
+    }
+
+    .layer-sky {
+      animation: fadeInScale 0.8s var(--ease-entrance) 0.15s forwards;
+    }
+
+    .layer-grid {
+      animation: fadeInScale 0.8s var(--ease-entrance) 0.2s forwards;
+    }
+
+    .layer-foliage {
+      animation: fadeInScale 0.8s var(--ease-entrance) 0.25s forwards;
+    }
+
+    .layer-upper-elements {
+      animation: fadeInScale 0.8s var(--ease-entrance) 0.35s forwards;
+    }
+
+    .layer-cityscape {
+      animation: fadeInScale 0.8s var(--ease-entrance) 0.45s forwards;
+    }
+
+    .layer-figures {
+      animation: fadeInScale 0.8s var(--ease-entrance) 0.55s forwards;
+    }
+
+    .layer-water {
+      animation: fadeInScale 0.8s var(--ease-entrance) 0.65s forwards;
+    }
+
+    .layer-foreground {
+      animation: fadeInScale 0.8s var(--ease-entrance) 0.75s forwards;
+    }
+
+    .layer-text {
+      animation: fadeInScale 0.8s var(--ease-entrance) 0.85s forwards;
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Parallax effect on cursor movement */
+    .layer {
+      transform: translate3d(0, 0, 0);
+      transition: transform 0.001s linear;
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      .layer {
+        animation: none !important;
+        opacity: 1 !important;
+        transition: none !important;
+      }
+    }
+
+    /* Responsive text overlay */
+    .text-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: clamp(20px, 5vw, 60px);
+      text-align: center;
+      opacity: 0;
+      animation: fadeInScale 0.8s var(--ease-entrance) 0.95s forwards;
+    }
+
+    .album-title {
+      font-size: clamp(32px, 10vw, 64px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: clamp(8px, 2vw, 16px);
+    }
+
+    .artist-name {
+      font-size: clamp(18px, 5vw, 32px);
+      font-weight: 600;
+      color: #FFD700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: clamp(6px, 1.5vw, 12px);
+    }
+
+    .album-label {
+      font-size: clamp(12px, 3vw, 16px);
+      color: #ccc;
+      font-weight: 500;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .hero-container {
+        max-width: 100%;
+      }
+
+      .text-overlay {
+        padding: clamp(16px, 4vw, 40px);
+      }
+    }
+
+    /* Loading state */
+    .hero-container.loading {
+      background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+    }
+
+    .layer.loading {
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-container" id="heroContainer">
+    <div class="hero-stage" id="heroStage">
+      <!-- Layer structure for parallax depth -->
+      <div class="layer layer-background" data-depth="0.3"></div>
+      <div class="layer layer-sky" data-depth="0.4"></div>
+      <div class="layer layer-grid" data-depth="0.45"></div>
+      <div class="layer layer-foliage" data-depth="0.5"></div>
+      <div class="layer layer-upper-elements" data-depth="0.6"></div>
+      <div class="layer layer-cityscape" data-depth="0.7"></div>
+      <div class="layer layer-figures" data-depth="0.8"></div>
+      <div class="layer layer-water" data-depth="0.85"></div>
+      <div class="layer layer-foreground" data-depth="0.9"></div>
+
+      <div class="text-overlay">
+        <div class="album-title">iTHELU eTHEKWINI</div>
+        <div class="artist-name">Okmalumkoolkat</div>
+        <div class="album-label">Coming Soon</div>
+      </div>
+
+      <div class="layer layer-text" data-depth="1.0"></div>
+    </div>
+  </div>
+
+  <script>
+    class HeroParallax {
+      constructor() {
+        this.container = document.getElementById('heroContainer');
+        this.stage = document.getElementById('heroStage');
+        this.layers = Array.from(document.querySelectorAll('.layer'));
+        this.mouseX = 0;
+        this.mouseY = 0;
+        this.targetX = 0;
+        this.targetY = 0;
+        this.isMoving = false;
+
+        // Animation frame variables for smooth parallax
+        this.lastUpdateTime = 0;
+        this.updateInterval = 1; // Update every 1ms for smooth parallax
+
+        this.init();
+      }
+
+      init() {
+        // Add event listeners
+        document.addEventListener('mousemove', (e) => this.onMouseMove(e));
+        window.addEventListener('resize', () => this.onResize());
+
+        // Start animation loop
+        this.animationFrame();
+      }
+
+      onMouseMove(e) {
+        // Get relative position within the hero container
+        const rect = this.container.getBoundingClientRect();
+        const containerSize = Math.min(rect.width, rect.height);
+
+        this.targetX = (e.clientX - rect.left) / containerSize - 0.5;
+        this.targetY = (e.clientY - rect.top) / containerSize - 0.5;
+        this.isMoving = true;
+      }
+
+      onResize() {
+        // Handle container resize
+        this.applyParallax();
+      }
+
+      applyParallax() {
+        // Smooth interpolation for cursor position
+        this.mouseX += (this.targetX - this.mouseX) * 0.1;
+        this.mouseY += (this.targetY - this.mouseY) * 0.1;
+
+        this.layers.forEach((layer) => {
+          const depth = parseFloat(layer.dataset.depth) || 0.5;
+
+          // Calculate parallax offset with depth value
+          // 0.001s delay is inherent in the CSS transition: transition-delay
+          const offsetX = this.mouseX * depth * 40; // Subtle offset (max 40px at depth 1.0)
+          const offsetY = this.mouseY * depth * 40;
+
+          // Apply transform
+          layer.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0)`;
+        });
+      }
+
+      animationFrame() {
+        const now = performance.now();
+
+        // Update parallax at controlled interval for smooth motion
+        if (now - this.lastUpdateTime >= this.updateInterval) {
+          if (this.isMoving) {
+            this.applyParallax();
+            this.lastUpdateTime = now;
+          }
+        }
+
+        requestAnimationFrame(() => this.animationFrame());
+      }
+    }
+
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      new HeroParallax();
+    });
+
+    // Layer image loading (ready for integration with actual assets)
+    function setLayerImage(selector, imagePath) {
+      const layer = document.querySelector(selector);
+      if (layer) {
+        layer.style.backgroundImage = `url('${imagePath}')`;
+      }
+    }
+
+    // Example of setting layer images (uncomment and update paths when ready)
+    /*
+    setLayerImage('.layer-background', '/path/to/background.webp');
+    setLayerImage('.layer-sky', '/path/to/sky.webp');
+    setLayerImage('.layer-grid', '/path/to/grid.webp');
+    setLayerImage('.layer-foliage', '/path/to/foliage.webp');
+    setLayerImage('.layer-upper-elements', '/path/to/upper.webp');
+    setLayerImage('.layer-cityscape', '/path/to/cityscape.webp');
+    setLayerImage('.layer-figures', '/path/to/figures.webp');
+    setLayerImage('.layer-water', '/path/to/water.webp');
+    setLayerImage('.layer-foreground', '/path/to/foreground.webp');
+    setLayerImage('.layer-text', '/path/to/text-overlay.webp');
+    */
+  </script>
+</body>
+</html>
