@@ -1,0 +1,58 @@
+.marquee {
+  overflow: hidden;
+  width: 100%;
+  border-top: var(--border);
+  border-bottom: var(--border);
+  padding-block: 1.25rem;
+  background: var(--bone);
+}
+
+.marquee.inverted {
+  background: var(--ink);
+  border-color: rgba(243,241,236,.15);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: scroll var(--duration, 40s) linear infinite;
+}
+
+.marquee.inverted .track {
+  animation-direction: reverse;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-snug);
+  white-space: nowrap;
+  padding-inline: .5rem;
+  color: var(--ink);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.inverted .item {
+  color: var(--bone);
+}
+
+.dot {
+  margin-inline: 1rem;
+  color: var(--accent);
+  font-size: 1.5em;
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}

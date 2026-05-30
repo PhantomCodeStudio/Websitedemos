@@ -1,0 +1,33 @@
+.app {
+  position: relative;
+}
+
+.skipLink {
+  position: absolute;
+  top: -100%;
+  left: var(--sp-4);
+  z-index: 200;
+  background: var(--ink);
+  color: var(--bone);
+  padding: var(--sp-3) var(--sp-6);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  transition: top var(--dur-fast) var(--ease-out);
+}
+
+.skipLink:focus {
+  top: var(--sp-4);
+}
+
+.pageWrap {
+  animation: pageFadeIn .4s var(--ease-out) both;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pageWrap { animation: none; }
+}
